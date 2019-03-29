@@ -62,19 +62,19 @@ def scrapper
     end
   end
 
-=begin
- TO DO: first part of split should be key, rest have to be merged and passed as value
-   chap.each do |x|
-    matched_string = x.text.match(/\d{5}\s+(\p{L}*(\s|\p{Zs})*)/)
-   if matched_string != nil
-     arr = matched_strinf.to_s.split(' ')
-     #chapter_name = ""
-     #
-   end     
-=end
-  
+  chap.each do |x|
+    matched_string = x.text.match(/\d{5}\s+(\S*(\s|\p{Zs})*)+/)
+    if matched_string != nil
+      arr = matched_string.to_s.split(' ')
+      chapter_name = " "
+      for i in 1...arr.size
+        chapter_name << (arr[i] + " ")
+      end
+      chapters[arr[0]]=chapter_name
+    end     
+  end
 
-  byebug
+  #byebug
 end
 
-scrapper
+#scrapper
