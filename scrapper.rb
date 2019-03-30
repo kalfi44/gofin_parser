@@ -94,11 +94,9 @@ def scrapper
 
   par.each do |x|
     if (matched_string = x.text.match(/^[\d]\s+(\S*(\s|\p{Zs})*)+/)) != nil
-      puts matched_string
       key,val = split_and_assemble(matched_string.to_s)
       incomes[key]=val
     elsif (matched_string = x.text.match(/^[\d]\d{2}\s+(\S*(\s|\p{Zs})*)+/)) != nil
-      #puts matched_string
       key,val = split_and_assemble(matched_string.to_s)
       paragraphs_i[key]=val
     end
@@ -107,17 +105,107 @@ def scrapper
   #Attachment 4 withou groups for now
   data[3].css('p').each do |x|
     if (matched_string = x.text.match(/^[\d]\s+(\S*(\s|\p{Zs})*)+/)) != nil
-      puts matched_string
       key,val = split_and_assemble(matched_string.to_s)
       expenses[key]=val
     elsif (matched_string = x.text.match(/^[\d]\d{2}\s+(\S*(\s|\p{Zs})*)+/)) != nil
-      #puts matched_string
       key,val = split_and_assemble(matched_string.to_s)
       paragraphs_e[key]=val
     end
     
   end
    
+  #att 5 & 6
+  att5_pars = {}
+  att6_pars = {}
+
+  data[4].css('p').each do |x|
+    matched_string = x.text.match(/^[\d]\d{2}\s+(\S*(\s|\p{Zs})*)+/)
+    if matched_string != nil
+      key,val = split_and_assemble(matched_string.to_s)
+      att5_pars[key]=val
+    end     
+  end
+
+  data[5].css('p').each do |x|
+    matched_string = x.text.match(/^[\d]\d{2}\s+(\S*(\s|\p{Zs})*)+/)
+    if matched_string != nil
+      key,val = split_and_assemble(matched_string.to_s)
+      att6_pars[key]=val
+    end     
+  end
+
+  #att 7 parse
+
+  att7_p = []
+  att7_sb = []
+
+  att7_sec = {}
+  att7_par = {}
+ 
+  data[6].css('p').each do |x|
+    att7_p.push(x)
+  end
+  
+  data[6].css('b').each do |x|
+    att7_sb.push(x)
+  end
+  
+  data[6].css('strong').each do |x|
+    att7_sb.push(x)
+  end
+
+  att7_sb.each do |x|
+    matched_string = x.text.match(/^[\d]\d{2}\s+(\p{L}*(\s|\p{Zs})*)+/) 
+    if matched_string !=nil
+      key,val = split_and_assemble(matched_string.to_s)
+      att7_sec[key]=val
+    end
+  end
+
+  att7_p.each do |x|
+    matched_string = x.text.match(/^[\d]\d{5}\s+(\S*(\s|\p{Zs})*)+/)
+    if matched_string != nil
+      key,val = split_and_assemble(matched_string.to_s)
+      att7_par[key]=val
+    end     
+  end
+
+  #att 8 parse
+  att8_p = []
+  att8_sb = []
+
+  att8_sec = {}
+  att8_par = {}
+ 
+  data[7].css('p').each do |x|
+    att8_p.push(x)
+  end
+  
+  data[7].css('b').each do |x|
+    att8_sb.push(x)
+  end
+  
+  data[7].css('strong').each do |x|
+    att8_sb.push(x)
+  end
+
+  att8_sb.each do |x|
+    matched_string = x.text.match(/^[\d]\d{2}\s+(\p{L}*(\s|\p{Zs})*)+/) 
+    if matched_string !=nil
+      key,val = split_and_assemble(matched_string.to_s)
+      att8_sec[key]=val
+    end
+  end
+
+  att8_p.each do |x|
+    matched_string = x.text.match(/^[\d]\d{5}\s+(\S*(\s|\p{Zs})*)+/)
+    if matched_string != nil
+      key,val = split_and_assemble(matched_string.to_s)
+      att8_par[key]=val
+    end     
+  end
+  
+
   byebug
 end
 
