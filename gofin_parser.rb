@@ -3,6 +3,7 @@ require 'httparty'
 require 'byebug'
 require 'open-uri'
 
+# @todo link file explaining scraping logic
 # This method is used to scrap ordinance from gofin-web page
 # Logic behind this method (like fixed values 2 and 4) 
 # is discribed in more details in linked file.
